@@ -1,0 +1,70 @@
+<h3>Edit User</h3>
+
+<form class="clientForm formDefault" [formGroup]="userEditForm" fxLayout="column">
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow">
+    <span class="formLft formCol">
+        <label>Company <strong class="red">*</strong></label>
+        <select formControlName="company" (change)="changeCompany($event.target.value)">
+          <option value="">Select company from here</option>
+          <option *ngFor="let item of companies" value={{item.id}}>{{item.data.companyName}}</option>
+        </select>
+        <p-message severity="error" text="Field is required" *ngIf="userEditForm.controls['company'].hasError('required') && userEditForm.controls['company'].touched"></p-message>
+    </span>
+    <span class="formRgt formCol">
+      <label>Brand <strong class="red">*</strong></label>
+      <select formControlName="category">
+        <option value="">Select brand from here</option>
+        <option *ngFor="let item of categories" value={{item.id}}>{{item.data.category}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="userEditForm.controls['category'].hasError('required') && userEditForm.controls['category'].touched"></p-message>
+    </span>
+  </div>
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0" fxLayoutGap.xs="0" class="formRow">
+    <span class="formLft formCol">
+      <label>First Name <strong class="red">*</strong></label>
+      <input type="text" value="" placeholder="Enter your first name here..." formControlName="firstName">
+      <p-message severity="error" text="Field is required" *ngIf="userEditForm.controls['firstName'].hasError('required') && userEditForm.controls['firstName'].touched"></p-message>
+      <p-message severity="error" text="Enter proper format of first name" *ngIf="userEditForm.controls['firstName'].hasError('pattern') && formInvalid"></p-message>
+    </span>
+    <span class="formRgt formCol">
+      <label>Last Name <strong class="red">*</strong></label>
+      <input type="text" value="" placeholder="Enter your last name here..." formControlName="lastName">
+      <p-message severity="error" text="Field is required" *ngIf="userEditForm.controls['lastName'].hasError('required') && userEditForm.controls['lastName'].touched"></p-message>
+      <p-message severity="error" text="Enter proper format of last name" *ngIf="userEditForm.controls['lastName'].hasError('pattern') && formInvalid"></p-message>
+    </span>
+  </div>
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0" fxLayoutGap.xs="0" class="formRow">
+    <span class="formLft formCol">
+      <label>Email <strong class="red">*</strong></label>
+      <input type="email" value="" readonly placeholder="Enter your Email Address here..." formControlName="email">
+      <p-message severity="error" text="Field is required" *ngIf="userEditForm.controls['email'].hasError('required') && userEditForm.controls['email'].touched"></p-message>
+      <p-message severity="error" text="Enter a valid email address" *ngIf="userEditForm.controls['email'].hasError('pattern') && formInvalid"></p-message>
+    </span>
+    <!-- <span class="formRgt formCol">
+      <label>Password <strong class="red">*</strong></label>
+      <input type="password" value="" placeholder="Enter your Password here..." formControlName="password">
+      <p-message severity="error" text="Field is required" *ngIf="userEditForm.controls['password'].hasError('required') && userEditForm.controls['password'].touched"></p-message>
+      <p-message severity="error" text="Password length should be minimum 6" *ngIf="userEditForm.controls['password'].hasError('minlength') && formInvalid"></p-message>
+    </span> -->
+  </div>
+  <!-- <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+    <span class="formRgt formCol">
+      <label>Contact Address <strong class="red">*</strong></label>
+      <input type="text" value="" placeholder="Enter your Address here..." formControlName="address">
+      <p-message severity="error" text="Field is required" *ngIf="userEditForm.controls['address'].hasError('required') && userEditForm.controls['address'].touched"></p-message>
+    </span>
+  </div> -->
+  <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+    <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="save(userEditForm.value)"
+      [disabled]="!userEditForm.valid">
+      <span class="ui-button-text ui-clickable">
+        <i class="fa fa-close" *ngIf="!userEditForm.valid"></i>
+        <i class="fa fa-check" *ngIf="userEditForm.valid"></i>
+        Submit
+      </span>
+    </button>
+    <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="/app/user/list"><span class="ui-button-text ui-clickable"><i class="fa fa-chevron-left"></i> Back</span></a>
+  </div>
+</form>
+<p-toast></p-toast>

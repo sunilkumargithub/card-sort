@@ -1,0 +1,98 @@
+<h3>Add Client</h3>
+
+
+<form class="clientForm formDefault" [formGroup]="clientAddForm" fxLayout="column">
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow">
+    <span class="formLft formCol">
+        <label>Company <strong class="red">*</strong></label>
+        <select formControlName="company" (change)="changeCompany($event.target.value)">
+          <option value="">Select company from here</option>
+          <option *ngFor="let item of companies" value={{item.id}}>{{item.data.companyName}}</option>
+        </select>
+        <p-message severity="error" text="Field is required" *ngIf="clientAddForm.controls['company'].hasError('required') && clientAddForm.controls['company'].touched"></p-message>
+    </span>
+    <span class="formRgt formCol">
+      <label>Category <strong class="red">*</strong></label>
+      <select formControlName="category">
+        <option value="">Select category from here</option>
+        <option *ngFor="let item of categories" value={{item.id}}>{{item.data.category}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="clientAddForm.controls['category'].hasError('required') && clientAddForm.controls['category'].touched"></p-message>
+    </span>
+  </div>
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow">
+    <span class="formLft formCol">
+      <label>First Name <strong class="red">*</strong></label>
+      <input type="text" value="" placeholder="Enter your first name here..." formControlName="firstName">
+      <p-message severity="error" text="Field is required" *ngIf="clientAddForm.controls['firstName'].hasError('required') && clientAddForm.controls['firstName'].touched"></p-message>
+      <p-message severity="error" text="Enter proper format of first name" *ngIf="clientAddForm.controls['firstName'].hasError('pattern') && formInvalid"></p-message>
+    </span>
+    <span class="formRgt formCol">
+      <label>Last Name <strong class="red">*</strong></label>
+      <input type="text" value="" placeholder="Enter your last name here..." formControlName="lastName">
+      <p-message severity="error" text="Field is required" *ngIf="clientAddForm.controls['lastName'].hasError('required') && clientAddForm.controls['lastName'].touched"></p-message>
+      <p-message severity="error" text="Enter proper format of last name" *ngIf="clientAddForm.controls['lastName'].hasError('pattern') && formInvalid"></p-message>
+    </span>
+  </div>
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow" class="formRow">
+    <span class="formLft formCol">
+      <label>Email <strong class="red">*</strong></label>
+      <input type="email" value="" placeholder="Enter your Email Address here..." formControlName="email">
+      <p-message severity="error" text="Field is required" *ngIf="clientAddForm.controls['email'].hasError('required') && clientAddForm.controls['email'].touched"></p-message>
+      <p-message severity="error" text="Enter a valid email address" *ngIf="clientAddForm.controls['email'].hasError('pattern') && formInvalid"></p-message>
+    </span>
+    <span class="formRgt formCol">
+      <label>Password <strong class="red">*</strong></label>
+      <input type="password" value="" placeholder="Enter your Password here..." formControlName="password">
+      <p-message severity="error" text="Field is required" *ngIf="clientAddForm.controls['password'].hasError('required') && clientAddForm.controls['password'].touched"></p-message>
+      <p-message severity="error" text="Password length should be minimum 6" *ngIf="clientAddForm.controls['password'].hasError('minlength') && formInvalid"></p-message>
+
+    </span>
+  </div>
+  <!-- <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+    <span class="formRgt formCol">
+      <label>Contact Address <strong class="red">*</strong></label>
+      <input type="text" value="" placeholder="Enter your Address here..." formControlName="address">
+      <p-message severity="error" text="Field is required" *ngIf="clientAddForm.controls['address'].hasError('required') && clientAddForm.controls['address'].touched"></p-message>
+    </span>
+  </div> -->
+  <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+    <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="save(clientAddForm.value)"
+      [disabled]="!clientAddForm.valid">
+      <span class="ui-button-text ui-clickable">
+        <i class="fa fa-close" *ngIf="!clientAddForm.valid"></i>
+        <i class="fa fa-check" *ngIf="clientAddForm.valid"></i>
+        Submit
+      </span>
+    </button>
+    <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="/app/client/list"><span
+        class="ui-button-text ui-clickable"><i class="fa fa-chevron-left"></i> Back</span></a>
+  </div>
+</form>
+
+<p-dialog header="Superadmin Deatils" [(visible)]="dialog_display" [modal]="true" [responsive]="true" [width]="350" [minWidth]="200"
+  [minY]="70" [maximizable]="false" [baseZIndex]="10000">
+  <p>
+    <strong>Please verify your password :</strong></p>
+  <p class="modalInput">
+    <input type="password" [(ngModel)]="userPassword" />
+    
+  </p>
+  <p class="modalButton">
+    <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="submit_popup()">
+      <span class="ui-button-text ui-clickable">
+        Submit
+      </span>
+    </button>
+    <button class="ui-button ui-button-danger ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="cancel_popup()">
+      <span class="ui-button-text ui-clickable">
+        Cancel
+      </span>
+    </button>
+  </p>
+</p-dialog>
+
+<p-toast></p-toast>

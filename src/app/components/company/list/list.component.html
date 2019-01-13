@@ -1,0 +1,84 @@
+<div fxLayout="column" fxFlex="100%" fxLayoutAlign="flex-start" fxLayoutGap="0">
+  <div class="listingHead" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between"
+    fxLayoutAlign.sm="flex-start" fxLayoutAlign.xs="flex-start" fxLayoutGap="25px">
+    <h3>Field List</h3>
+    <span class="searchField">
+      <i class="fa fa-search"></i>
+      <input [(ngModel)]="searchText" placeholder="Search text goes here..." class="searchDataInput">
+    </span>
+  </div>
+
+  <div>
+    <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="../add"><span class="ui-button-text ui-clickable"><i
+          class="fa fa-plus"></i> Add Field</span></a>
+  </div>
+  <div class="mt20"></div>
+  <div class="tableResponsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Field</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows | searchFilter: {'companyName':searchText}">
+          <td>{{row.data.companyName}}</td>
+          <td>
+            <button pButton type="button" class="btnIcon" icon="pi pi-pencil" (click)="goToEdit(row.id)"></button>
+            <button pButton type="button" class="ui-button-danger btnIcon" icon="pi pi-trash" (click)="delete(row.id)"></button>
+          </td>
+        </tr>
+
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <h5 style="margin:0;">No Data Found</h5>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <!-- pager -->
+  <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+    <li>Pages : </li>
+    <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <a (click)="getViewData(1)"><i class="fa fa-step-backward"></i> </a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === 1}">
+      <a (click)="getViewData(pager.currentPage - 1)"><i class="fa fa-backward"></i> </a>
+    </li>
+    <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+      <a (click)="getViewData(page)">{{page}}</a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a (click)="getViewData(pager.currentPage + 1)"> <i class="fa fa-forward"></i></a>
+    </li>
+    <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+      <a (click)="getViewData(pager.totalPages)"> <i class="fa fa-step-forward"></i></a>
+    </li>
+  </ul>
+  <!-- pager -->
+</div>
+
+<!-- // confirm box for delete -->
+<p-toast position="center" key="c" [modal]="true" [baseZIndex]="5000">
+  <ng-template let-message pTemplate="message">
+    <div style="text-align: center">
+      <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+      <h3>{{message.summary}}</h3>
+      <p>{{message.detail}}</p>
+    </div>
+    <div class="ui-g ui-fluid">
+      <div class="ui-g-6">
+        <button type="button" pButton (click)="onConfirm(message.id)" label="Yes" class="ui-button-success"></button>
+      </div>
+      <div class="ui-g-6">
+        <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+      </div>
+    </div>
+  </ng-template>
+</p-toast>
+<!-- // confirm box for delete -->
+<p-toast></p-toast>

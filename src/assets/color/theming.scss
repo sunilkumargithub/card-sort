@@ -1,0 +1,154 @@
+
+@import 'src/assets/color/palette.scss';
+$primaryColor:#2e3191;
+$secondaryColor:#c8ced3;
+$successColor:#4dbd74;
+$dangerColor:#f86c6b;
+$warningColor:#ffc107;
+$infoColor:#63c2de;
+$lightColor:#f0f3f5;
+$darkColor:#2f353a;
+
+$h1-textSize:2.1875rem;
+$h2-textSize:1.75rem;
+$h3-textSize:1.53125rem;
+$h4-textSize:1.3125rem;
+$h5-textSize:1.09375rem;
+$h6-textSize:.875rem;
+$display-1-size:6rem;
+$display-2-size:5.5rem;
+$display-3-size:4.5rem;
+$display-4-size:3.5rem;
+
+body{
+    .primaryBg{
+        // background-color: $primaryColor;
+        background-color: theme('primary', 500);
+    }
+    .primaryText{
+        // color: $primaryColor;
+        color: theme('primary', 500);
+    }
+    .secondaryBg{
+        // background-color: $secondaryColor;
+        background-color: theme('secondary', 500);
+    }
+    .secondaryText{
+        // color: $secondaryColor;
+        color: theme('secondary', 500);
+    }
+    .successBg{
+        // background-color: $successColor;
+        background-color: theme('success', 500);
+    }
+    .successText{
+        // color: $successColor;
+        color: theme('success', 500);        
+    }
+    .dangerBg{
+        // background-color: $dangerColor;
+        background-color: theme('danger', 500);
+    }
+    .dangerText{
+        // color: $dangerColor;
+        color: theme('danger',500);
+    }
+    .warningBg{
+        // background-color: $warningColor;
+        background-color: theme('warning', 500);
+    }
+    .warningText{
+        // color: $warningColor;
+        color: theme('warning', 500);
+    }
+    .infoBg{
+        // background-color: $infoColor;
+        background-color: theme('info', 500);
+    }
+    .infoText{
+        // color: $infoColor;
+        color: theme('info', 500);
+    }
+    .lightBg{
+        // background-color: $lightColor;
+        background-color: theme('light', 500);
+    }
+    .lightText{
+        // color: $lightColor;
+        color: theme('light', 500);
+    }
+    .darkBg{
+        // background-color:$darkColor;
+        background-color: theme('dark', 500);
+    }
+    .darkText{
+        // color:$darkColor;
+        color: theme('dark', 500);
+    }
+    .noMargin{
+        margin: 0;
+    }
+    h1{
+        font-size: $h1-textSize;
+        margin: 0 0 30px;
+    }
+    h2{
+        font-size: $h2-textSize;
+        margin: 0 0 25px;
+    }
+    h3{
+        font-size: $h3-textSize;
+        margin: 0 0 20px;
+    }
+    h4{
+        font-size: $h4-textSize;
+        margin: 0 0 15px;
+    }
+    h5{
+        font-size: $h5-textSize;
+        margin: 0 0 12px;
+    }
+    h6{
+        font-size: $h6-textSize;
+        margin: 0 0 8px;
+    }
+    .display-1{
+        font-size: $display-1-size;
+    }
+    .display-2{
+        font-size: $display-2-size;
+    }
+    .display-3{
+        font-size: $display-3-size;
+    }
+    .display-4{
+        font-size: $display-4-size;
+    }
+    .pad-t-b-10{
+        padding: 10px 0px;
+    }
+    .pad10{
+        padding: 10px 10px;
+    }
+    .text-center{
+        text-align: center;
+    }
+    .robotoStyle{
+        font-family: 'Roboto', sans-serif;
+    }
+    .opensansStyle{
+        font-family: 'Open Sans', sans-serif;
+    }
+    .oswaldStyle{
+        font-family: 'Oswald', sans-serif;
+    }
+    .ubuntuStyle{
+        font-family: 'Ubuntu', sans-serif;
+    }
+    .ralewayStyle{
+        font-family: 'Raleway', sans-serif;
+    }
+    p{
+        margin: 0 0 20px;
+    }
+}

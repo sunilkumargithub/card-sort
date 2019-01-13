@@ -1,0 +1,66 @@
+<h3>Edit Group</h3>
+
+
+<form class="groupForm formDefault" [formGroup]="groupEditForm" fxLayout="column">
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow">
+    <span class="formLft formCol">
+      <label>Project <strong class="red">*</strong></label>
+      <select formControlName="project">
+        <option value="">select a project</option>
+        <option *ngFor="let project of allProjects" value="{{project.id}}">{{project.data.title}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="groupEditForm.controls['project'].hasError('required') && groupEditForm.controls['project'].touched"></p-message>
+    </span>
+    <span class="formRgt formCol">
+      <label>Group Title <strong class="red">*</strong></label>
+      <input type="text" value="" placeholder="Enter group title here..." formControlName="title">
+      <p-message severity="error" text="Field is required" *ngIf="groupEditForm.controls['title'].hasError('required') && groupEditForm.controls['title'].touched"></p-message>
+    </span>
+  </div>
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow">
+    <span class="formLft formCol">
+      <label>Number of Users <strong class="red">*</strong></label>
+      <input type="number" value="" disabled placeholder="Enter number of users here..." formControlName="users">
+      <p-message severity="error" text="Field is required" *ngIf="groupEditForm.controls['users'].hasError('required') && groupEditForm.controls['users'].touched"></p-message>
+    </span>
+    <span class="formRgt formCol">
+      <label>Age <strong class="red">*</strong></label>
+      <input type="text" value="" placeholder="Enter ages between here..." formControlName="age">
+      <p-message severity="error" text="Field is required" *ngIf="groupEditForm.controls['age'].hasError('required') && groupEditForm.controls['age'].touched"></p-message>
+      <p-message severity="error" text="Enter a valid pattern (eg: 21-25)" *ngIf="groupEditForm.controls['age'].hasError('pattern') && formInvalid"></p-message>
+    </span>
+  </div>
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow">
+    <span class="formLft formCol">
+      <label>Gender <strong class="red">*</strong></label>
+      <select formControlName="gender">
+        <option value="mixed">Mixed</option>
+        <option value="female">Female</option>
+        <option value="male">Male</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="groupEditForm.controls['gender'].hasError('required') && groupEditForm.controls['gender'].touched"></p-message>
+    </span>
+    <span class="formRgt formCol">
+      <label>Location <strong class="red">*</strong></label>
+      <input type="text" value="" placeholder="Enter Location here..." formControlName="location" autocorrect="off"
+        autocapitalize="off" spellcheck="off" #search>
+      <p-message severity="error" text="Field is required" *ngIf="groupEditForm.controls['location'].hasError('required') && groupEditForm.controls['location'].touched"></p-message>
+    </span>
+  </div>
+  <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+    <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="groupEditFormSubmit()"
+      [disabled]="!groupEditForm.valid">
+      <span class="ui-button-text ui-clickable">
+        <i class="fa fa-close" *ngIf="!groupEditForm.valid"></i>
+        <i class="fa fa-check" *ngIf="groupEditForm.valid"></i>
+        Submit
+      </span>
+    </button>
+    <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="/app/test-group/list"><span
+        class="ui-button-text ui-clickable"><i class="fa fa-chevron-left"></i> Back</span></a>
+  </div>
+</form>
+<p-toast></p-toast>

@@ -1,0 +1,24 @@
+$color-key:'base' !default;
+$colors:( 'sky':( 50: #e7fafd, 100: #c2f2f9, 200: #9ae9f5, 300: #71e0f1, 400: #52daee, 500: #34d3eb, 600: #2fcee9, 700: #27c8e5, 800: #21c2e2, 900: #15b7dd, A100: #ffffff, A200: #daf7ff, A400: #a7edff, A700: #8de8ff, ),
+'blue':(50: #eeedf7, 100: #d5d1ea, 200: #b9b3dd, 300: #9c94cf, 400: #877dc4, 500: #7266ba, 600: #6a5eb3, 700: #5f53ab, 800: #5549a3, 900: #423894, A100: #e4e1ff, A200: #b7aeff, A400: #897bff, A700: #7262ff,),
+'green':(50: #f0f8ed, 100: #d9efd2, 200: #c0e4b4, 300: #a7d995, 400: #94d07f, 500: #81c868, 600: #79c260, 700: #6ebb55, 800: #64b44b, 900: #51a73a, A100: #f7fff5, A200: #ceffc2, A400: #a5ff8f, A700: #91ff75,),
+'pink':(50: #ffedf3, 100: #fed3e2, 200: #fdb6ce, 300: #fc99ba, 400: #fc83ac, 500: #fb6d9d, 600: #fa6595, 700: #fa5a8b, 800: #f95081, 900: #f83e6f, A100: #ffffff, A200: #ffffff, A400: #ffdfe7, A700: #ffc6d4,),
+'primary':(50: #e6e6f2,100: #c0c1de,200: #9798c8,300: #6d6fb2,400: #4d50a2,500: #2e3191,600: #292c89,700: #23257e,800: #1d1f74,900: #121362,A100: #999aff,A200: #6668ff,A400: #3336ff,A700: #1a1dff,),
+'secondary':(50: #f8f9fa, 100: #eff0f2, 200: #e4e7e9, 300: #d9dde0, 400: #d0d5da, 500: #c8ced3, 600: #c2c9ce, 700: #bbc2c8, 800: #b4bcc2, 900: #a7b0b7, A100: #ffffff, A200: #ffffff, A400: #ffffff, A700: #e5f4ff,),
+'success':(50: #eaf7ee, 100: #caebd5, 200: #a6deba, 300: #82d19e, 400: #68c789, 500: #4dbd74, 600: #46b76c, 700: #3dae61, 800: #34a657, 900: #259844, A100: #d7ffe1, A200: #a4ffbb, A400: #71ff94, A700: #58ff81,),
+'danger':(50: #feeded, 100: #fdd3d3, 200: #fcb6b5, 300: #fa9897, 400: #f98281, 500: #f86c6b, 600: #f76463, 700: #f65958, 800: #f54f4e, 900: #f33d3c, A100: #ffffff, A200: #ffffff, A400: #ffd9d9, A700: #ffc0bf,),
+'warning':(50: #fff8e1, 100: #ffecb5, 200: #ffe083, 300: #ffd451, 400: #ffca2c, 500: #ffc107, 600: #ffbb06, 700: #ffb305, 800: #ffab04, 900: #ff9e02, A100: #ffffff, A200: #fffaf2, A400: #ffe4bf, A700: #ffd9a6,),
+'info':(50: #ecf8fb, 100: #d0edf5, 200: #b1e1ef, 300: #92d4e8, 400: #7acbe3, 500: #63c2de, 600: #5bbcda, 700: #51b4d5, 800: #47acd1, 900: #359fc8, A100: #ffffff, A200: #def5ff, A400: #abe6ff, A700: #91deff,),
+'light':(50: #fdfefe, 100: #fbfbfc, 200: #f8f9fa, 300: #f5f7f8, 400: #f2f5f7, 500: #f0f3f5, 600: #eef1f4, 700: #eceff2, 800: #e9edf0, 900: #e5eaee, A100: #ffffff, A200: #ffffff, A400: #ffffff, A700: #ffffff,),
+'dark':(50: #e6e7e7, 100: #c1c2c4, 200: #979a9d, 300: #6d7275, 400: #4e5358, 500: #2f353a, 600: #2a3034, 700: #23282c, 800: #1d2225, 900: #121618, A100: #5ebfff, A200: #2baaff, A400: #0094f7, A700: #0085de,));
+
+
+@function theme( $name: 'sky', $varient: $color-key) {
+    $color: null;
+    $color-keys: map-get($colors, $name);
+    @if $color-keys {
+        $color: map-get($color-keys, $varient);
+    }
+    @return $color;
+}
+

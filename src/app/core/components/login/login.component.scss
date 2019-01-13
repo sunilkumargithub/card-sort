@@ -1,0 +1,49 @@
+
+@import 'src/assets/color/palette.scss';
+@import 'src/assets/color/theming.scss';
+.loginMain{
+    min-height: 75vh;
+}
+.formGroup{
+    margin-bottom: 20px;
+    input{
+        width: 100%;
+    }
+    div{
+        font-size: 13px;
+        color: rgb(175, 9, 9);
+        margin-top: 10px;
+    }
+    label{
+        display: block;
+        padding: 10px 0px;
+    }
+}
+.form-container{
+    max-width: 500px;
+    margin: 0 auto;
+    .ui-card-body{
+        padding: 25px;
+    }
+    a.forgotPsw{
+        text-decoration: none;
+        color: #2e3191;
+    }
+    p-checkbox{
+        color: #2e3191;
+    }
+    .logo{
+        width: 100px;
+        height: 100px;
+        background-color: #2e3191;
+        color: #fff;
+        text-align: center;
+        display: flex;
+        margin: 0 auto;
+        padding: 10px;
+        border-radius: 5px;
+        p{
+            padding-top: 35px;
+        }
+    }
+}

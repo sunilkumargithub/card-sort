@@ -1,0 +1,37 @@
+<h3>Edit Month</h3>
+
+<form class="categoryForm formDefault" [formGroup]="categoryEditForm" fxLayout="column">
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow">
+    <span class="formRgt formCol">
+      <label>Field<strong class="red">*</strong></label>
+      <select formControlName="company" placeholder="Select company from here">
+        <option value="">Select Month from here</option>
+        <option *ngFor="let company of companies" value={{company.id}}>{{company.data.companyName}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="categoryEditForm.controls['company'].hasError('required') && categoryEditForm.controls['company'].touched"></p-message>
+    </span>
+
+
+    <span class="formRgt formCol">
+      <label>Month<strong class="red">*</strong></label>
+      <input type="text" value="" placeholder="Enter your Month here..." formControlName="category">
+      <p-message severity="error" text="Field is required" *ngIf="categoryEditForm.controls['category'].hasError('required') && categoryEditForm.controls['category'].touched"></p-message>
+      <p-message severity="error" text="Enter proper format of Month" *ngIf="categoryEditForm.controls['category'].hasError('pattern') && formInvalid"></p-message>
+    </span>
+  </div>
+
+  <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+    <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="categoryEditFormSubmit()"
+      [disabled]="!categoryEditForm.valid">
+      <span class="ui-button-text ui-clickable">
+        <i class="fa fa-close" *ngIf="!categoryEditForm.valid"></i>
+        <i class="fa fa-check" *ngIf="categoryEditForm.valid"></i>
+        Submit
+      </span>
+    </button>
+    <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="/app/category/list"><span
+        class="ui-button-text ui-clickable"><i class="fa fa-chevron-left"></i> Back</span></a>
+  </div>
+</form>
+<p-toast></p-toast>

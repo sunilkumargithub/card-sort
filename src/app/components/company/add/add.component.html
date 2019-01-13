@@ -1,0 +1,28 @@
+<h3>Add Field</h3>
+
+
+<form class="companyForm formDefault" [formGroup]="companyAddForm" fxLayout="column">
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow">
+    <span class="formLft formCol">
+      <label>Field Name <strong class="red">*</strong></label>
+      <input type="text" value="" placeholder="Enter the Field name here..." formControlName="companyName">
+      <p-message severity="error" text="Field is required" *ngIf="companyAddForm.controls['companyName'].hasError('required') && companyAddForm.controls['companyName'].touched"></p-message>
+      <p-message severity="error" text="Enter proper format of Field name" *ngIf="companyAddForm.controls['companyName'].hasError('pattern') && formInvalid"></p-message>
+    </span>
+  </div>
+ 
+  <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+    <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="save(companyAddForm.value)"
+      [disabled]="!companyAddForm.valid">
+      <span class="ui-button-text ui-clickable">
+        <i class="fa fa-close" *ngIf="!companyAddForm.valid"></i>
+        <i class="fa fa-check" *ngIf="companyAddForm.valid"></i>
+        Submit
+      </span>
+    </button>
+    <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="/app/company/list"><span
+        class="ui-button-text ui-clickable"><i class="fa fa-chevron-left"></i> Back</span></a>
+  </div>
+</form>
+<p-toast></p-toast>

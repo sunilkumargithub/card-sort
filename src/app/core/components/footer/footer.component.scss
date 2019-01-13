@@ -1,0 +1,16 @@
+@import 'src/assets/color/palette.scss';
+@import 'src/assets/color/theming.scss';
+.footer {
+    z-index: 1;
+    div {
+        // background-color: theme('blue', 500);
+        background-color: theme('primary', 900);
+        padding: 15px 0px;;
+        p {
+            text-align: center;
+            color: #fff;
+            font-size: 14px;
+            margin: 0;
+        }
+    }
+}

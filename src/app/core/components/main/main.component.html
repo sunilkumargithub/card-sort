@@ -1,0 +1,18 @@
+<div class="wrapper" [ngClass]="isDrawerOpen ? 'sideBarClosed' : 'sideBarOpened'">
+  <div class="wrapperSidebar">
+      <app-sidebar *ngIf="user" [user]="user"></app-sidebar>
+  </div>
+  <div class="wrapperContainer">
+      <app-header [user]="user"></app-header>
+        <div class="wrap">
+            <div class="ui-card">
+              <div class="ui-card-body" fxLayout="column">
+                <router-outlet></router-outlet>
+              </div>
+            </div>
+        </div>
+      <app-footer></app-footer>
+  </div>
+</div>
+
+<!-- <p-breadcrumb [model]="items"></p-breadcrumb> -->

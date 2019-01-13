@@ -1,0 +1,136 @@
+<div fxLayout="column" fxFlex="100%" fxLayoutAlign="flex-start" fxLayoutGap="0">
+    <div class="listingHead" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between"
+        fxLayoutAlign.sm="flex-start" fxLayoutAlign.xs="flex-start" fxLayoutGap="25px">
+        <h3>Project List</h3>
+        <span class="searchField">
+            <i class="fa fa-search"></i>
+            <input [(ngModel)]="searchText" placeholder="Search text goes here..." class="searchDataInput">
+        </span>
+    </div>
+
+    <div>
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="../add"><span
+                class="ui-button-text ui-clickable"><i class="fa fa-plus"></i> Add Project</span></a>
+    </div>
+    <div class="mt20"></div>
+    <div class="tableResponsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>Project Title</th>
+                    <th>Client</th>
+                    <th>Company</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="rows.length > 0">
+
+                <tr *ngFor="let row of rows | searchFilter: {title:searchText, company:searchText, client:searchText}">
+                    <td>{{row.data.title}}</td>
+                    <td>{{row.client?.firstName}} {{row.client?.lastName}}</td>
+                    <td>{{row.company?.companyName}}</td>
+                    <td>
+                        <button pButton type="button" class="btnIcon" icon="pi pi-pencil" routerLink="../edit/{{row.id}}"></button>
+                        <button pButton type="button" class="ui-button-danger btnIcon" icon="pi pi-trash" (click)="showConfirm(row)"></button>
+                        <button pButton type="button" class="ui-button-success btnIcon" icon="fa fa-eye" (click)="showDialog(row)"></button>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <h5 style="margin:0;">No Data Found</h5>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- pager -->
+    <ul *ngIf="pager.pages && pager.pages.length" class="pagination">
+        <li>Pages : </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="getViewData(1)"><i class="fa fa-step-backward"></i> </a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === 1}">
+            <a (click)="getViewData(pager.currentPage - 1)"><i class="fa fa-backward"></i> </a>
+        </li>
+        <li *ngFor="let page of pager.pages" [ngClass]="{active:pager.currentPage === page}">
+            <a (click)="getViewData(page)">{{page}}</a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="getViewData(pager.currentPage + 1)"> <i class="fa fa-forward"></i></a>
+        </li>
+        <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}">
+            <a (click)="getViewData(pager.totalPages)"> <i class="fa fa-step-forward"></i></a>
+        </li>
+    </ul>
+    <!-- pager -->
+</div>
+
+
+<!-- // Dialog Box -->
+<p-dialog header="Project Details" [(visible)]="display" [modal]="true" [responsive]="true" [width]="800" [minWidth]="200"
+    [minY]="70" [maximizable]="false" [baseZIndex]="10000" *ngIf="rowdata">
+    <p><strong>Title :</strong> {{rowdata.data.title}}</p>
+    <p><strong>client :</strong> {{rowdata.client?.firstName | titlecase}}{{rowdata.client?.lastName | titlecase}}</p>
+    <p><strong>Company :</strong> {{rowdata.company?.companyName | titlecase}}</p>
+
+    <div>
+        <strong>Test Group :</strong>
+        <div style="max-height: 200px; overflow: auto; margin-top: 12px;">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>
+                            <table *ngFor="let testGroup of rowdata.test_group_details">
+                                <thead>
+                                    <tr>
+                                        <th colspan="3" style="background-color:#333 !important; color: #fff;">{{testGroup.title}}</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th>User</th>
+                                        <th>Code</th>
+                                        <th>Status</th>
+                                    </tr>
+                                    <tr *ngFor="let testUser of testGroup.test_group_user;let i =index">
+                                        <td>User {{i+1}}</td>
+                                        <td>{{testUser.code}}</td>
+                                        <td>{{testUser.isUsed ? 'Used' : 'Not Used'}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</p-dialog>
+<!-- // Dialog Box -->
+
+
+<!-- // confirm box for delete -->
+<p-toast position="center" key="c" (onClose)="onReject()" [modal]="true" [baseZIndex]="5000">
+    <ng-template let-message pTemplate="message">
+        <div style="text-align: center">
+            <i class="pi pi-exclamation-triangle" style="font-size: 3em"></i>
+            <h3>{{message.summary}}</h3>
+            <p>{{message.detail}}</p>
+        </div>
+        <div class="ui-g ui-fluid">
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onConfirm(rowdata)" label="Yes" class="ui-button-success"></button>
+            </div>
+            <div class="ui-g-6">
+                <button type="button" pButton (click)="onReject()" label="No" class="ui-button-secondary"></button>
+            </div>
+        </div>
+    </ng-template>
+</p-toast>
+<!-- // confirm box for delete -->
+
+<p-toast></p-toast>

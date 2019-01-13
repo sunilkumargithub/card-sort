@@ -1,0 +1,12 @@
+
+@import 'src/assets/color/palette.scss';
+@import 'src/assets/color/theming.scss';
+.logo-container {
+    padding: 0 30px;
+    .logo {
+        padding: 10px;
+        max-width: 100%;
+        display: inline-block;
+        vertical-align: middle;
+    }
+}

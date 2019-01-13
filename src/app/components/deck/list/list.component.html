@@ -1,0 +1,44 @@
+<div fxLayout="column" fxFlex="100%" fxLayoutAlign="flex-start" fxLayoutGap="0">
+  <div class="listingHead" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutAlign="space-between"
+    fxLayoutAlign.sm="flex-start" fxLayoutAlign.xs="flex-start" fxLayoutGap="25px">
+    <h3>Deck List</h3>
+    <span class="searchField">
+      <i class="fa fa-search"></i>
+      <input [(ngModel)]="searchText" placeholder="Search text goes here..." class="searchDataInput">
+    </span>
+  </div>
+  <!-- <div>
+    <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="../add"><span class="ui-button-text ui-clickable"><i
+          class="fa fa-plus"></i> Add Deck</span></a>
+  </div> -->
+  <div class="tableResponsive">
+    <table>
+      <thead>
+        <tr>
+          <th>Project Title</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let row of rows | searchFilter: {title: searchText}">
+          <td>{{row.data.title}}</td>
+          <td>
+            <button pButton type="button" class="btnIcon" icon="pi pi-pencil" (click)="goToEdit(row.id)"></button>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3">
+            <h5 style="margin:0;">No Data Found</h5>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+  <!-- <div>
+    <div class="gap20"></div>
+    <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="../add"><span
+        class="ui-button-text ui-clickable"><i class="fa fa-upload"></i> Upload</span></button>
+  </div> -->
+</div>

@@ -1,0 +1,232 @@
+<h3>Edit Project</h3>
+
+
+<form class="projectForm formDefault" [formGroup]="projectEditForm" fxLayout="column">
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+        fxLayoutGap.xs="0" class="formRow">
+        <span class="formLft formCol">
+            <label>Project Title <strong class="red">*</strong></label>
+            <input type="text" value="" placeholder="Enter project title here..." formControlName="title">
+            <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['title'].hasError('required') && projectEditForm.controls['title'].touched"></p-message>
+        </span>
+        <span class="formRgt formCol">
+            <label>Client <strong class="red">*</strong></label>
+            <select formControlName="client" placeholder="Select client from here">
+                <option value="">Select client from here</option>
+                <option *ngFor="let client of clients" value={{client.id}}>{{client.data.firstName}}
+                    {{client.data.lastName}}
+                </option>
+            </select>
+            <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['client'].hasError('required') && projectEditForm.controls['client'].touched"></p-message>
+        </span>
+    </div>
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+        fxLayoutGap.xs="0" class="formRow">
+        <span class="formLft formCol">
+            <label># of Groups<strong class="red">*</strong></label>
+            <input type="text" value="" placeholder="Enter test groups here..." formControlName="testGroup" (keyup)="changeTestGroup($event.target.value)">
+            <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['testGroup'].hasError('required') && projectEditForm.controls['testGroup'].touched"></p-message>
+            <p-message severity="error" text="Enter number onwards 1..." *ngIf="projectEditForm.controls['testGroup'].hasError('pattern') && formInvalid"></p-message>
+
+        </span>
+        <span class="formRgt formCol">
+            <label>Company<strong class="red">*</strong></label>
+            <select formControlName="company" placeholder="Select company from here">
+                <option value="">Select Company from here</option>
+                <option *ngFor="let company of companies" value={{company.id}}>{{company.data.companyName}}</option>
+            </select>
+            <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['company'].hasError('required') && projectEditForm.controls['company'].touched"></p-message>
+        </span>
+    </div>
+    <!-- <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0" fxLayoutGap.xs="0" class="formRow">
+        <span class="formLft formCol">
+            <label>Number of Rounds <strong class="red">*</strong></label>
+            <input type="number" value="" placeholder="Enter Number of rounds here..." formControlName="rounds" min="1">
+            <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['rounds'].hasError('required') && projectEditForm.controls['rounds'].touched"></p-message>
+        </span>
+        <span class="formRgt formCol">
+            <label>Round Configuration <strong class="red">*</strong></label>
+            <select formControlName="roundConfiguration" placeholder="Select Round Configuration from here">
+                <option value="">Select Round Configuration from here</option>
+                <option value="time">Time</option>
+                <option value="point_target">Point targets</option>
+            </select>
+            <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['roundConfiguration'].hasError('required') && projectEditForm.controls['roundConfiguration'].touched"></p-message>
+        </span>
+    </div> 
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+        fxLayoutGap.xs="0" class="formRow">
+        <span class="formLft formCol">
+            <label>Decks <strong class="red">*</strong></label>
+            <div class="ui-g" style="width:250px;margin-bottom:10px">
+                <div class="ui-g-12" *ngFor="let deck of alldecks">
+                    <p-checkbox name="decks" value="{{deck.data.title}}" label="{{deck.data.title}}" inputId="{{deck.id}}"
+                        [formControl]="projectEditForm.controls['decks']"></p-checkbox>
+                </div>
+            </div>
+            <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['decks'].hasError('required') && projectEditForm.controls['decks'].touched"></p-message>
+        </span> 
+        <span class="formRgt formCol">
+            <label>Segments <strong class="red">*</strong></label>
+            <input type="text" value="" placeholder="Enter segments here..." formControlName="segments">
+            <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['segments'].hasError('required') && projectEditForm.controls['segments'].touched"></p-message>
+        </span>
+    </div>-->
+
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+        fxLayoutGap.xs="0" class="formRow" formArrayName="roundConfiguration">
+        <span class="formRgt formCol">
+            <label>Round Configuration <strong class="red">*</strong></label>
+            <div class="tableResponsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Round</th>
+                            <th> Time (in mins)</th>
+                            <th> Point</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let itemrow of projectEditForm.controls['roundConfiguration'].controls; let i=index"
+                            [formGroupName]="i">
+                            <td>Round {{i+1}}</td>
+                            <td>
+                                <input type="number" value="" placeholder="round time..." formControlName="time" min="1">
+
+                            </td>
+                            <td>
+                                <input type="number" value="" placeholder="point..." formControlName="point" min="1">
+                            </td>
+                            <td>
+                                <button pButton class="ui-button-danger btnIcon" icon="pi pi-trash" type="button" *ngIf="projectEditForm.controls['roundConfiguration'].controls.length > 1"
+                                    (click)="deleteRoundConfigRow(i)"></button>
+
+                                <button pButton class="btnIcon" icon="pi pi-plus" type="button" *ngIf="projectEditForm.controls['roundConfiguration'].controls.length == (i+1)"
+                                    (click)="addNewRoundConfigRow()"></button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </span>
+    </div>
+
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+        fxLayoutGap.xs="0" class="formRow" formArrayName="groups">
+        <span class="formRgt formCol">
+            <label>Test Groups <strong class="red">*</strong></label>
+            <div class="tableResponsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th> Title</th>
+                            <th> User(s)</th>
+                            <th> Gender</th>
+                            <th> Age</th>
+                            <th> Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let itemrow of projectEditForm.controls['groups'].controls; let i=index"
+                            [formGroupName]="i">
+                            <td>
+                                <input type="hidden" formControlName="id" value="" />
+                                <input type="text" value="" placeholder="group title here..." formControlName="title">
+
+                                <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['groups'].controls[i].controls['title'].hasError('required') && projectEditForm.controls['groups'].controls[i].controls['title'].touched"></p-message>
+                            </td>
+                            <td>
+                                <input type="hidden" formControlName="users_ids" value="" />
+                                <input type="number" value="" placeholder="number of users here..." formControlName="users"
+                                    min="1">
+                                <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['groups'].controls[i].controls['users'].hasError('required') && projectEditForm.controls['groups'].controls[i].controls['users'].touched"></p-message>
+                            </td>
+                            <td>
+                                <select formControlName="gender">
+                                    <option value="mixed">Mixed</option>
+                                    <option value="female">Female</option>
+                                    <option value="male">Male</option>
+                                </select>
+                                <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['groups'].controls[i].controls['gender'].hasError('required') && projectEditForm.controls['groups'].controls[i].controls['gender'].touched"></p-message>
+                            </td>
+                            <td>
+                                <input type="text" value="" placeholder="ages between here..." formControlName="age">
+                                <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['groups'].controls[i].controls['age'].hasError('required') && projectEditForm.controls['groups'].controls[i].controls['age'].touched"></p-message>
+                                <p-message severity="error" text="Enter a valid pattern (eg: 21-25)" *ngIf="projectEditForm.controls['groups'].controls[i].controls['age'].hasError('pattern') && formInvalid"></p-message>
+                            </td>
+                            <td>
+                                <input type="text" value="" placeholder="Location here..." autocorrect="off"
+                                    autocapitalize="off" spellcheck="off" #search formControlName="location">
+                                <p-message severity="error" text="Field is required" *ngIf="projectEditForm.controls['groups'].controls[i].controls['location'].hasError('required') && projectEditForm.controls['groups'].controls[i].controls['location'].touched"></p-message>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </span>
+    </div>
+
+    <!-- <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow" formArrayName="decks">
+        <span class="formRgt formCol">
+            <label>Decks <strong class="red">*</strong></label>
+            <div class="tableResponsive">
+                <table>
+                    <thead>
+                        <tr>
+                            <th> Decks</th>
+                            <th> Color</th>
+                            <th> Required</th>
+                            <th> Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let itemrow of projectEditForm.controls['decks'].controls; let i=index"
+                            [formGroupName]="i">
+                            <td>
+                                <input type="text" value="" placeholder="enter deck name..." formControlName="name">
+                            </td>
+                            <td>
+                                <select formControlName="color" placeholder="Select Round Configuration from here">
+                                    <option value="">select a color</option>
+                                    <option *ngFor="let item of colors" value={{item.data.code}}>{{item.data.color}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <div class="ui-g-12">
+                                    <p-radioButton name="group{{i+1}}" value="true" label="Yes" formControlName="isRequired"
+                                        inputId="preopt1"></p-radioButton>
+
+                                    <p-radioButton name="group{{i+1}}" value="false" label="No" formControlName="isRequired"
+                                        inputId="preopt2"></p-radioButton>
+                                </div>
+                            </td>
+                            <td>
+                                <button pButton class="ui-button-danger btnIcon" icon="pi pi-trash" type="button" *ngIf="projectEditForm.controls['decks'].controls.length > 1"
+                                    (click)="deleteDeckRow(i)"></button>
+
+                                <button pButton class="btnIcon" icon="pi pi-plus" type="button" *ngIf="projectEditForm.controls['decks'].controls.length == (i+1)"
+                                    (click)="addNewDeckRow()"></button>
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </span>
+    </div> -->
+    <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+        <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="projectEditFormSubmit()"
+            [disabled]="!projectEditForm.valid">
+            <span class="ui-button-text ui-clickable">
+                <i class="fa fa-close" *ngIf="!projectEditForm.valid"></i>
+                <i class="fa fa-check" *ngIf="projectEditForm.valid"></i>
+                Submit
+            </span>
+        </button>
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="/app/project/list"><span
+                class="ui-button-text ui-clickable"><i class="fa fa-chevron-left"></i> Back</span></a>
+    </div>
+</form>
+<p-toast></p-toast>

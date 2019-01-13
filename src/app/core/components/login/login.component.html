@@ -1,0 +1,69 @@
+<div class="loginMain formMain" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0"
+  fxFlex="100%">
+  <div class="form-container" fxFlex="35%">
+
+    <p-card>
+      <!-- <div class="logo">
+        <img src="./assets/logo.png" />
+        
+      </div> -->
+      <h3 style="color:rgb(14, 12, 12)">DoodhNath Singh</h3>
+      
+      <div class="gap20"></div>
+      <p class="bolderText">LOGIN</p>
+      <div class="gap20"></div>
+      <form fxLayout="column" fxLayoutAlign="center" fxLayoutGap="10px" [formGroup]="loginForm">
+        <div class="formGroup">
+          <input class="styledInput" type="text" pInputText name="username" placeholder="Enter email" formControlName="email"
+            value="">
+          <div *ngIf="loginForm.controls['email'].hasError('pattern') && formInvalid">
+            Please enter a valid email address
+          </div>
+          <div *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].hasError('required')">
+            Email is
+            <strong>required</strong>
+          </div>
+        </div>
+
+        <div class="formGroup">
+          <input class="styledInput" type="password" pInputText name="password" formControlName="password" placeholder="Password"
+            value="">
+          <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('required')">
+            Password is
+            <strong>required</strong>
+          </div>
+
+          <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('minlength')">
+            Password should be atleast
+            <strong>{{config.PASSWORD_MIN_LENGTH}} </strong> characters
+          </div>
+
+          <div *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].hasError('maxlength')">
+            Password should not be more than
+            <strong>{{config.PASSWORD_MAX_LENGTH}} </strong> characters
+          </div>
+        </div>
+
+        <button class="btnPrimary" type="submit" (click)="loginFormSubmit()">Login</button>
+        <div class="gap20"></div>
+      </form>
+      <span>
+        <a href="javascript:;" class="forgotPsw" (click)="showDialog()" label="Forgot password">Forgot password</a>
+      </span>
+      <div class="ui-g" style="float:right;">
+        <p-checkbox name="group1" value="New York" label="Remember me" inputId="ny"></p-checkbox>
+      </div>
+    </p-card>
+  </div>
+</div>
+<p-dialog header="Password assistance" [(visible)]="display1" [modal]="true" [responsive]="true" [width]="350"
+  [minWidth]="200" [minY]="70" [maximizable]="true" [baseZIndex]="10000">
+  <div class="formGroup">
+    <label for="email" style="display: block;">Email address</label>
+    <input class="styledInput" type="text" [(ngModel)]="resetEmail" size="30" pInputText placeholder="Enter email">
+  </div>
+  <p-footer>
+    <button type="button" pButton icon="pi pi-check" (click)="forgetPass()" label="Send"></button>
+    <button type="button" pButton icon="pi pi-close" (click)="display1=false" label="Cancel" class="ui-button-secondary"></button>
+  </p-footer>
+</p-dialog>

@@ -1,0 +1,31 @@
+<h3>Edit Color</h3>
+
+<form class="groupForm formDefault" [formGroup]="colorEditForm" fxLayout="column">
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+      fxLayoutGap.xs="0" class="formRow">
+      <span class="formLft formCol">
+          <label>Color <strong class="red">*</strong></label>
+          <input type="text" value="" placeholder="Enter color name here..." formControlName="color">
+          <p-message severity="error" text="Field is required" *ngIf="colorEditForm.controls['color'].hasError('required') && colorEditForm.controls['color'].touched"></p-message>
+      </span>
+      <span class="formRgt formCol">
+        <label>Code <strong class="red">*</strong></label>
+        <input type="text" value="" placeholder="Put color code here..." formControlName="code">
+        <p-message severity="error" text="Field is required" *ngIf="colorEditForm.controls['code'].hasError('required') && colorEditForm.controls['code'].touched"></p-message>
+      </span>
+    </div>
+    
+    <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+      <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="colorEditFormSubmit()"
+        [disabled]="!colorEditForm.valid">
+        <span class="ui-button-text ui-clickable">
+          <i class="fa fa-close" *ngIf="!colorEditForm.valid"></i>
+          <i class="fa fa-check" *ngIf="colorEditForm.valid"></i>
+          Submit
+        </span>
+      </button>
+      <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="/app/color/list"><span
+          class="ui-button-text ui-clickable"><i class="fa fa-chevron-left"></i> Back</span></a>
+    </div>
+  </form>
+  <p-toast></p-toast>

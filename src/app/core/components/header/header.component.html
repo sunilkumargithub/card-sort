@@ -1,0 +1,11 @@
+<p-toolbar fxLayout="column" fxLayoutAlign="space-between" fxLayoutGap="0" *ngIf="this.router.url != '/login'">
+  <div class="ui-toolbar-group-left">
+    <button pButton type="button" (click)="visibleSidebar()" icon="fa fa-navicon" class="menuBtn"></button>
+    <!-- <button pButton type="button" icon="fa fa-search" class="searchBtn"></button> -->
+  </div>
+
+  <div class="ui-toolbar-group-right" *ngIf="user">
+    <button pButton label="{{user['email']}}" icon="fa fa-smile-o" class="loginBtn"></button>
+    <button pButton label="Logout" icon="fa fa-sign-out" class="loginBtn" (click)="onLogout()"></button>
+  </div>
+</p-toolbar>

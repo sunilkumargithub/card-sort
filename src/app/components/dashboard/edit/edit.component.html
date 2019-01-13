@@ -1,0 +1,76 @@
+<h3>Edit Card</h3>
+
+
+<form class="cardForm formDefault" [formGroup]="cardEditForm" fxLayout="column">
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0" fxLayoutGap.xs="0" class="formRow">
+        <span class="formRgt formCol">
+            <label>Upload Image</label>
+            <input type="file" (change)="selectFile($event, 'card_image')" accept="image/*">
+            <p-message severity="error" text="Field is required" *ngIf="cardEditForm.controls['card_image'].hasError('required') && cardEditForm.controls['card_image'].touched"></p-message>
+            <div class="imgInputed">
+                <img *ngIf="cardEditForm.controls['card_image'].value" height="200px" width="300" [src]="cardEditForm.controls['card_image'].value">
+            </div>
+        </span>
+    </div>
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0" fxLayoutGap.xs="0" class="formRow">
+        <span class="formRgt formCol">
+            <label>Project <strong class="red">*</strong></label>
+            <select formControlName="project" placeholder="Select Project from here" (change)="changeProject($event.target.value)">
+                <option value="">Select Project from here</option>
+                <option *ngFor="let project of projects" value={{project.id}}>{{project.data.title}}</option>
+            </select>
+
+            <p-message severity="error" text="Field is required" *ngIf="cardEditForm.controls['project'].hasError('required') && cardEditForm.controls['project'].touched"></p-message>
+        </span>
+        <span class="formRgt formCol">
+            <label>Deck <strong class="red">*</strong></label>
+            <select formControlName="deck" placeholder="Select Deck from here">
+                <option value="">Select Deck from here</option>
+                <option *ngFor="let deck of decks" value={{deck.name}}>{{deck.name}}</option>
+            </select>
+            <p-message severity="error" text="Field is required" *ngIf="cardEditForm.controls['deck'].hasError('required') && cardEditForm.controls['deck'].touched"></p-message>
+        </span>
+    </div>
+
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0" fxLayoutGap.xs="0" class="formRow">
+        <span class="formLft formCol">
+            <label>Title <strong class="red">*</strong></label>
+            <input type="text" value="" placeholder="Enter title here..." formControlName="title">
+            <p-message severity="error" text="Field is required" *ngIf="cardEditForm.controls['title'].hasError('required') && cardEditForm.controls['title'].touched"></p-message>
+        </span>
+        <span class="formLft formCol">
+            <label>Point <strong class="red">*</strong></label>
+            <input type="number" value="" placeholder="Enter points here..." formControlName="points" min="1">
+            <p-message severity="error" text="Field is required" *ngIf="cardEditForm.controls['points'].hasError('required') && cardEditForm.controls['points'].touched"></p-message>
+        </span>
+    </div>
+
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0" fxLayoutGap.xs="0"
+        class="formRow">
+        <span class="formLft formCol">
+            <label>Content
+                <strong class="red">*</strong>
+            </label>
+            <p-editor formControlName="content" [style]="{'height':'320px'}"></p-editor>
+            <p-message severity="error" text="Field is required" *ngIf="cardEditForm.controls['content'].hasError('required') && cardEditForm.controls['content'].touched"></p-message>
+        </span>
+        <!-- <span class="formLft formCol">
+        </span> -->
+
+    </div>
+
+    <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+        <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="cardEditFormSubmit()"
+            [disabled]="!cardEditForm.valid">
+            <span class="ui-button-text ui-clickable">
+                <i class="fa fa-close" *ngIf="!cardEditForm.valid"></i>
+                <i class="fa fa-check" *ngIf="cardEditForm.valid"></i>
+                Submit
+            </span>
+        </button>
+        <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="/app/card/list"><span
+                class="ui-button-text ui-clickable"><i class="fa fa-chevron-left"></i> Back</span></a>
+    </div>
+
+</form>
+<p-toast></p-toast>

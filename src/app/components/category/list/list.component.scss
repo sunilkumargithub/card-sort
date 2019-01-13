@@ -1,0 +1,57 @@
+
+h3{
+    align-self: center;
+    margin: 0 !important;
+    @media(max-width:1023px) {
+        align-self:flex-start;
+        margin-bottom:20px !important;
+    }
+}
+.listingHead{
+    margin-bottom: 20px !important;
+}
+
+.searchField{
+    align-self: center;
+    @media(max-width:1023px) {
+        align-self:flex-start;
+        width: 100%;
+    }
+    .searchDataInput{
+    height: 42px;
+    min-width: 300px;
+    margin: 0;
+    border-radius: 4px;
+    background: #f1f1f1;
+    border: 0;
+    font-size: 14px;
+    padding: 5px 10px;
+    font-weight: 400;
+    outline: 0 !important;
+    &:focus{
+        outline: 1px solid #ccc !important;
+    }
+    @media(max-width:1023px){
+        min-width: calc(100% - 30px);
+        width: calc(100% - 30px);
+    }
+}
+
+    i{
+        font-size: 21px;
+        margin-right: 8px;
+        vertical-align: middle;
+    }
+}
+
+
+tfoot{
+    display: none;
+}
+tbody{
+    &:empty{
+        +tfoot{
+            display: table-row-group;
+        }
+    }
+}

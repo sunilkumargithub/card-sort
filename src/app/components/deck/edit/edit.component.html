@@ -1,0 +1,73 @@
+<h3>Deck Edit</h3>
+
+
+<form class="projectForm formDefault" [formGroup]="deckEditForm" fxLayout="column">
+  <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+    <span class="formLft formCol">
+        <label>Project <strong class="red">*</strong></label>
+        <label>{{projectTitle}}</label>
+    </span>
+  </div>
+  <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+    <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+      fxLayoutGap.xs="0" class="formRow" formArrayName="decks">
+      <span class="formRgt formCol">
+        <label>Decks <strong class="red">*</strong></label>
+        <div class="tableResponsive">
+          <table>
+            <thead>
+              <tr>
+                <th> Decks</th>
+                <th> Color</th>
+                <th> Included in count</th>
+                <th> Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let itemrow of deckEditForm.controls['decks'].controls; let i=index" [formGroupName]="i">
+                <td>
+                  <input type="text" value="" placeholder="enter deck name..." formControlName="name">
+
+                </td>
+                <td>
+                  <select formControlName="color" placeholder="Select Round Configuration from here">
+                    <option value="">select a color</option>
+                    <option *ngFor="let item of colors" value={{item.data.code}}>{{item.data.color}}</option>
+                  </select>
+                </td>
+                <td>
+                  <div class="ui-g-12">
+                    <p-radioButton name="group{{i+1}}" value="true" label="Yes" formControlName="isRequired" inputId="preopt1"></p-radioButton>
+
+                    <p-radioButton name="group{{i+1}}" value="false" label="No" formControlName="isRequired" inputId="preopt2"></p-radioButton>
+                  </div>
+                </td>
+                <td>
+                  <button pButton class="ui-button-danger btnIcon" icon="pi pi-trash" type="button" *ngIf="deckEditForm.controls['decks'].controls.length > 1"
+                    (click)="deleteDeckRow(i)"></button>
+
+                  <button pButton class="btnIcon" icon="pi pi-plus" type="button" *ngIf="deckEditForm.controls['decks'].controls.length == (i+1)"
+                    (click)="addNewDeckRow()"></button>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+      </span>
+    </div>
+  </div>
+
+  <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+    <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="save(deckEditForm.value)"
+      [disabled]="!deckEditForm.valid">
+      <span class="ui-button-text ui-clickable">
+        <i class="fa fa-close" *ngIf="!deckEditForm.valid"></i>
+        <i class="fa fa-check" *ngIf="deckEditForm.valid"></i>
+        Submit
+      </span>
+    </button>
+    <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="/app/deck/list"><span
+        class="ui-button-text ui-clickable"><i class="fa fa-chevron-left"></i> Back</span></a>
+  </div>
+</form>

@@ -1,0 +1,110 @@
+<h3>Edit Card Logic</h3>
+
+
+<form class="projectForm formDefault" [formGroup]="cardLogicForm" fxLayout="column">
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow">
+    <span class="formRgt formCol">
+      <label>Project <strong class="red">*</strong></label>
+      <select formControlName="project" placeholder="Select project from here" (change)="changeProject($event.target.value)">
+        <option value="">Select Project from here</option>
+        <option *ngFor="let project of projects" value={{project.id}}>{{project.data.title}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="cardLogicForm.controls['project'].hasError('required') && cardLogicForm.controls['project'].touched"></p-message>
+    </span>
+    <span class="formRgt formCol">
+      <label>Condition <strong class="red">*</strong></label>
+      <select formControlName="condition" placeholder="Select condition from here" (change)="changeCondition($event.target.value)">
+        <option value="">Select Condition from here</option>
+        <option *ngFor="let condition of conditions" value={{condition.id}}>{{condition.data.condition}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="cardLogicForm.controls['condition'].hasError('required') && cardLogicForm.controls['condition'].touched"></p-message>
+    </span>
+  </div>
+
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow" *ngIf="conditionSlug==='select_from_list'">
+    <span class="formRgt formCol">
+      <label>Deck <strong class="red">*</strong></label>
+      <select formControlName="deck" placeholder="Select dec from here" (change)="deckChange($event.target.value,'cards')">
+        <option value="">Select Deck from here</option>
+        <option *ngFor="let deck of alldecks" value={{deck.name}}>{{deck.name}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="cardLogicForm.controls['deck'].hasError('required') && cardLogicForm.controls['deck'].touched"></p-message>
+    </span>
+    <span class="formRgt formCol">
+
+      <label>Cards <strong class="red">*</strong></label>
+      <div class="ui-g" style="width:250px;margin-bottom:10px">
+        <div class="ui-g-12" *ngFor="let card of cards">
+          <p-checkbox name="cards" value="{{card.data.title}}" label="{{card.data.title}}" inputId="{{card.id}}"
+            [formControl]="cardLogicForm.controls['card']"></p-checkbox>
+        </div>
+      </div>
+      <p-message severity="error" text="Field is required" *ngIf="cardLogicForm.controls['card'].hasError('required') && cardLogicForm.controls['card'].touched"></p-message>
+
+
+      <!-- <label>Card <strong class="red">*</strong></label>
+      <select formControlName="card" placeholder="Select card from here">
+        <option value="">Select Card from here</option>
+        <option *ngFor="let card of cards" value={{card.id}}>{{card.data.title}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="cardLogicForm.controls['card'].hasError('required') && cardLogicForm.controls['card'].touched"></p-message> -->
+    </span>
+  </div>
+
+
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow" *ngIf="conditionSlug==='related_card'">
+    <span class="formRgt formCol">
+      <label>From Deck <strong class="red">*</strong></label>
+      <select formControlName="from_deck" (change)="deckChange($event.target.value,'from_cards')">
+        <option value="">Select from Deck from here</option>
+        <option *ngFor="let deck of alldecks" value={{deck.name}}>{{deck.name}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="cardLogicForm.controls['from_deck'].hasError('required') && cardLogicForm.controls['from_deck'].touched"></p-message>
+    </span>
+    <span class="formRgt formCol">
+      <label>From Card <strong class="red">*</strong></label>
+      <select formControlName="from_card">
+        <option value="">Select Card from here</option>
+        <option *ngFor="let card of from_cards" value={{card.id}}>{{card.data.title}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="cardLogicForm.controls['from_card'].hasError('required') && cardLogicForm.controls['from_card'].touched"></p-message>
+    </span>
+  </div>
+
+  <div fxFlex="100%" fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="25px" fxLayoutGap.sm="0"
+    fxLayoutGap.xs="0" class="formRow" *ngIf="conditionSlug==='related_card'">
+    <span class="formRgt formCol">
+      <label>To Deck <strong class="red">*</strong></label>
+      <select formControlName="to_deck" (change)="deckChange($event.target.value,'to_cards')">
+        <option value="">Select from Deck from here</option>
+        <option *ngFor="let deck of alldecks" value={{deck.name}}>{{deck.name}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="cardLogicForm.controls['to_deck'].hasError('required') && cardLogicForm.controls['to_deck'].touched"></p-message>
+    </span>
+    <span class="formRgt formCol">
+      <label>To Card <strong class="red">*</strong></label>
+      <select formControlName="to_card">
+        <option value="">Select Card from here</option>
+        <option *ngFor="let card of to_cards" value={{card.id}}>{{card.data.title}}</option>
+      </select>
+      <p-message severity="error" text="Field is required" *ngIf="cardLogicForm.controls['to_card'].hasError('required') && cardLogicForm.controls['to_card'].touched"></p-message>
+    </span>
+  </div>
+
+  <div fxFlex="100%" fxLayout="row" fxLayoutGap="25px" class="formRow">
+    <button class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" (click)="cardLogicFormSubmit()"
+      [disabled]="!cardLogicForm.valid">
+      <span class="ui-button-text ui-clickable">
+        <i class="fa fa-close" *ngIf="!cardLogicForm.valid"></i>
+        <i class="fa fa-check" *ngIf="cardLogicForm.valid"></i>
+        Submit
+      </span>
+    </button>
+    <a class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" routerLink="/app/card_logic/list"><span
+        class="ui-button-text ui-clickable"><i class="fa fa-chevron-left"></i> Back</span></a>
+  </div>
+</form>
+<p-toast></p-toast>
